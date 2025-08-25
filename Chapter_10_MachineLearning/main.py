@@ -56,7 +56,7 @@ plt.rcParams['axes.unicode_minus'] = False
 def print_section(title):
     """打印章节标题"""
     print("\n" + "="*60)
-    print(f"🧬 {title}")
+    print(f"{title}")
     print("="*60)
 
 
@@ -132,11 +132,11 @@ def create_gene_classification_data():
     df = pd.DataFrame(features, columns=feature_names)
     df['function'] = labels
     
-    print("📊 数据集信息：")
+    print("数据集信息：")
     print(f"  样本数量: {len(df)}")
     print(f"  特征数量: {len(feature_names)}")
     print(f"  类别分布: {df['function'].value_counts().to_dict()}")
-    print("\n📊 特征统计：")
+    print("\n特征统计：")
     print(df[feature_names].describe().round(3))
     
     return df, feature_names
@@ -144,7 +144,7 @@ def create_gene_classification_data():
 
 def visualize_feature_distributions(df, feature_names):
     """可视化特征分布"""
-    print("\n📊 可视化特征分布")
+    print("\n可视化特征分布")
     
     fig, axes = plt.subplots(2, 3, figsize=(15, 10))
     axes = axes.flatten()
@@ -255,7 +255,7 @@ def train_classification_models(df, feature_names):
 
 def visualize_model_comparison(results):
     """可视化模型性能比较"""
-    print("\n📊 模型性能比较")
+    print("\n模型性能比较")
     
     # 提取指标
     models = list(results.keys())
@@ -294,7 +294,7 @@ def demonstrate_overfitting():
     • 良好拟合：抓住核心规律，泛化能力强
     • 过拟合：记住噪声，新数据表现差
     
-    ⚖️ 平衡之道：
+    平衡之道：
     • 增加训练数据（更多病例）
     • 简化模型（抓住主要症状）
     • 正则化（防止过度依赖）
@@ -303,11 +303,11 @@ def demonstrate_overfitting():
     print_section("过拟合与欠拟合")
     
     print("""
-🔍 什么是过拟合？
+什么是过拟合？
 过拟合就像一个医学生死记硬背了所有病例，
 但不理解疾病的本质规律，遇到新病例就束手无策。
 
-🔍 如何避免过拟合？
+如何避免过拟合？
 1. 增加训练数据（看更多病例）
 2. 简化模型（抓住主要症状）
 3. 正则化（防止过度依赖某个特征）
@@ -408,7 +408,7 @@ def create_cell_expression_data():
     cell_names = [f"Cell_{i:03d}" for i in range(1, 101)]
     df = pd.DataFrame(all_cells, columns=gene_names, index=cell_names)
     
-    print(f"📊 数据集信息：")
+    print(f"数据集信息：")
     print(f"  细胞数量: {df.shape[0]}")
     print(f"  基因数量: {df.shape[1]}")
     print(f"  表达值范围: [{df.values.min():.2f}, {df.values.max():.2f}]")
@@ -466,7 +466,8 @@ def perform_clustering_analysis(df, true_labels):
         
         # 聚类
         if name == 'GMM':
-            labels = clusterer.fit_predict(df_scaled)
+            clusterer.fit(df_scaled)
+            labels = clusterer.predict(df_scaled)
         else:
             labels = clusterer.fit_predict(df_scaled)
         
@@ -561,14 +562,14 @@ def determine_optimal_clusters(df_scaled):
     plt.show()
     
     optimal_k = k_range[np.argmax(silhouettes)]
-    print(f"🎯 基于轮廓系数，最优聚类数为: {optimal_k}")
+    print(f"基于轮廓系数，最优聚类数为: {optimal_k}")
     
     return optimal_k
 
 
 def create_cluster_heatmap(df, labels):
     """创建聚类热图"""
-    print("\n📊 创建聚类热图")
+    print("\n创建聚类热图")
     
     # 按聚类标签排序
     sorted_idx = np.argsort(labels)
@@ -624,13 +625,13 @@ def demonstrate_feature_engineering():
     • 网络特征：蛋白相互作用、通路参与
     • 组合特征：特征交互、比值、多项式
     
-    💡 工程艺术：
+    工程艺术：
     好的特征让复杂问题变简单！
     """
     print_section("特征工程的艺术")
     
     print("""
-🔬 特征工程在生物学中的应用：
+特征工程在生物学中的应用：
 
 1. 序列特征：
    - k-mer频率（DNA/蛋白质motif）
@@ -699,7 +700,7 @@ def hyperparameter_tuning_demo():
     • 细胞培养：温度、CO2浓度、培养基
     • 测序：深度、读长、质量阈值
     
-    🎯 优化策略：
+    优化策略：
     • 网格搜索：穷尽所有组合（耗时）
     • 随机搜索：随机采样（高效）
     • 贝叶斯优化：智能选择下一个尝试
@@ -724,7 +725,7 @@ def hyperparameter_tuning_demo():
         'min_samples_leaf': [1, 2, 4]
     }
     
-    print("🔍 网格搜索超参数...")
+    print("网格搜索超参数...")
     print(f"参数组合总数: {np.prod([len(v) for v in param_grid.values()])}")
     
     # 网格搜索
@@ -793,40 +794,40 @@ def introduction_to_deep_learning():
     print_section("深度学习初探")
     
     print("""
-🤖 深度学习：生物信息学的新纪元
+深度学习：生物信息学的新纪元
 
-🎆 突破性应用：
+突破性应用：
 
-1️⃣ AlphaFold2 - 破解50年蛋白质结构难题
-   • 输入：氨基酸序列 → 输出：3D原子结构
-   • 准确度：原子级精度（GDT > 90）
-   • 影响：加速药物研发10倍
+1. AlphaFold2 - 破解50年蛋白质结构难题
+   - 输入：氨基酸序列 → 输出：3D原子结构
+   - 准确度：原子级精度（GDT > 90）
+   - 影响：加速药物研发10倍
 
-2️⃣ Enformer - 基因表达预测大模型
-   • 输入：200kb DNA序列 → 输出：表达模式  
-   • 应用：理解基因调控机制
-   • 意义：解密非编码区域功能
+2. Enformer - 基因表达预测大模型
+   - 输入：200kb DNA序列 → 输出：表达模式  
+   - 应用：理解基因调控机制
+   - 意义：解密非编码区域功能
 
-3️⃣ 药物设计 - 生成式模型
-   • 输入：靶点结构 → 输出：候选药物分子
-   • 速度：秒级生成 vs 月级筛选
-   • 成功案例：COVID-19药物发现
+3. 药物设计 - 生成式模型
+   - 输入：靶点结构 → 输出：候选药物分子
+   - 速度：秒级生成 vs 月级筛选
+   - 成功案例：COVID-19药物发现
 
-4️⃣ 细胞图像分析 - 计算病理学
-   • 输入：显微镜图像 → 输出：细胞类型/状态
-   • 精度：超越人类专家水平
-   • 应用：癌症早期诊断、药物筛选
+4. 细胞图像分析 - 计算病理学
+   - 输入：显微镜图像 → 输出：细胞类型/状态
+   - 精度：超越人类专家水平
+   - 应用：癌症早期诊断、药物筛选
 
-5️⃣ 单细胞深度学习 - scBERT/scGPT
-   • 输入：scRNA-seq数据 → 输出：细胞注释
-   • 发现：新的细胞亚群和轨迹
-   • 革命：单细胞生物学新范式
+5. 单细胞深度学习 - scBERT/scGPT
+   - 输入：scRNA-seq数据 → 输出：细胞注释
+   - 发现：新的细胞亚群和轨迹
+   - 革命：单细胞生物学新范式
     """)
     
     # 简单的神经网络示例（使用sklearn）
     from sklearn.neural_network import MLPClassifier
     
-    print("\n📊 简单神经网络示例")
+    print("\n简单神经网络示例")
     
     # 创建XOR问题（非线性可分）
     X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
@@ -883,6 +884,631 @@ def introduction_to_deep_learning():
 
 
 # ====================
+# Part 5: 真实数据处理 - 实战技能训练
+# ====================
+
+def handle_real_single_cell_data():
+    """
+    处理真实的单细胞RNA-seq数据
+    
+    🧬 生物学背景：
+    单细胞测序数据的特点：
+    - 高维稀疏：20000+ 基因，大多数值为0
+    - 批次效应：不同实验批次间的系统性差异
+    - 细胞异质性：同类细胞间的表达差异
+    - 技术噪声：测序深度、扩增偏差等
+    
+    🔬 教学目标：
+    • 学会处理真实生物数据的常见挑战
+    • 掌握数据质量控制流程
+    • 理解批次效应及其校正方法
+    • 应用机器学习进行细胞分型
+    """
+    print_section("Part 5.1: 真实单细胞数据处理")
+    
+    import os
+    
+    # 读取真实单细胞数据
+    data_file = os.path.join("..", "data", "single_cell_sample.csv")
+    
+    try:
+        print("读取真实单细胞数据...")
+        df_sc = pd.read_csv(data_file)
+        print(f"数据加载成功: {df_sc.shape[0]} 细胞 × {df_sc.shape[1]} 特征")
+    except FileNotFoundError:
+        print("数据文件未找到，跳过真实数据分析")
+        return
+    
+    # 数据预处理
+    print(f"\n数据预览:")
+    print(df_sc.head())
+    
+    # 分离元数据和表达数据
+    meta_cols = ['cell_id', 'batch', 'cell_type']
+    gene_cols = [col for col in df_sc.columns if col not in meta_cols]
+    
+    print(f"\n数据结构分析:")
+    print(f"  - 元数据列: {len(meta_cols)} 个 ({meta_cols})")
+    print(f"  - 基因表达列: {len(gene_cols)} 个")
+    print(f"  - 细胞类型: {df_sc['cell_type'].nunique()} 种")
+    print(f"  - 实验批次: {df_sc['batch'].nunique()} 个")
+    
+    # 数据质量控制
+    print(f"\n数据质量控制:")
+    
+    # 1. 表达量统计
+    expression_data = df_sc[gene_cols]
+    total_counts = expression_data.sum(axis=1)
+    detected_genes = (expression_data > 0).sum(axis=1)
+    
+    print(f"每细胞统计:")
+    print(f"  - 平均总表达量: {total_counts.mean():.1f} ± {total_counts.std():.1f}")
+    print(f"  - 平均检测基因数: {detected_genes.mean():.1f} ± {detected_genes.std():.1f}")
+    print(f"  - 数据稀疏度: {(expression_data == 0).sum().sum() / expression_data.size * 100:.1f}%")
+    
+    # 2. 批次效应检测
+    print(f"\n🔬 批次效应检测:")
+    batch_stats = df_sc.groupby('batch').agg({
+        gene_cols[0]: 'mean',  # 用第一个基因作为例子
+        'cell_type': 'count'
+    })
+    print("各批次统计:")
+    print(batch_stats)
+    
+    # 数据标准化（log1p变换 + z-score）
+    print(f"\n数据标准化:")
+    # 1. log1p变换处理偏态分布
+    expression_log = np.log1p(expression_data)
+    
+    # 2. z-score标准化
+    scaler = StandardScaler()
+    expression_scaled = scaler.fit_transform(expression_log)
+    
+    print("标准化步骤:")
+    print("  1. log1p变换: 处理数据偏态分布")
+    print("  2. z-score标准化: 消除量纲影响")
+    print(f"  3. 标准化后范围: [{expression_scaled.min():.2f}, {expression_scaled.max():.2f}]")
+    
+    # 降维分析（PCA + t-SNE）
+    print(f"\n降维分析:")
+    
+    # PCA降维
+    pca = PCA(n_components=10)
+    pca_result = pca.fit_transform(expression_scaled)
+    
+    print(f"PCA分析:")
+    print(f"  - 前3个主成分解释方差: {pca.explained_variance_ratio_[:3].sum():.2f}")
+    print(f"  - 前5个主成分解释方差: {pca.explained_variance_ratio_[:5].sum():.2f}")
+    
+    # t-SNE可视化
+    if len(df_sc) > 5:  # 确保有足够样本
+        tsne = TSNE(n_components=2, random_state=42, perplexity=min(5, len(df_sc)-1))
+        tsne_result = tsne.fit_transform(pca_result[:, :5])  # 先PCA再t-SNE
+        
+        # 可视化结果
+        fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+        fig.suptitle('单细胞数据分析结果', fontsize=14)
+        
+        # 1. PCA结果（按细胞类型着色）
+        ax = axes[0, 0]
+        unique_types = df_sc['cell_type'].unique()
+        colors = plt.cm.tab10(np.linspace(0, 1, len(unique_types)))
+        
+        for cell_type, color in zip(unique_types, colors):
+            mask = df_sc['cell_type'] == cell_type
+            ax.scatter(pca_result[mask, 0], pca_result[mask, 1], 
+                      c=[color], label=cell_type, alpha=0.7, s=50)
+        ax.set_title('PCA - 按细胞类型')
+        ax.set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]:.2f})')
+        ax.set_ylabel(f'PC2 ({pca.explained_variance_ratio_[1]:.2f})')
+        ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+        
+        # 2. PCA结果（按批次着色）
+        ax = axes[0, 1]
+        unique_batches = df_sc['batch'].unique()
+        batch_colors = plt.cm.Set1(np.linspace(0, 1, len(unique_batches)))
+        
+        for batch, color in zip(unique_batches, batch_colors):
+            mask = df_sc['batch'] == batch
+            ax.scatter(pca_result[mask, 0], pca_result[mask, 1], 
+                      c=[color], label=batch, alpha=0.7, s=50)
+        ax.set_title('PCA - 按实验批次')
+        ax.set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]:.2f})')
+        ax.set_ylabel(f'PC2 ({pca.explained_variance_ratio_[1]:.2f})')
+        ax.legend()
+        
+        # 3. t-SNE结果（按细胞类型）
+        ax = axes[1, 0]
+        for cell_type, color in zip(unique_types, colors):
+            mask = df_sc['cell_type'] == cell_type
+            ax.scatter(tsne_result[mask, 0], tsne_result[mask, 1], 
+                      c=[color], label=cell_type, alpha=0.7, s=50)
+        ax.set_title('t-SNE - 按细胞类型')
+        ax.set_xlabel('t-SNE 1')
+        ax.set_ylabel('t-SNE 2')
+        ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+        
+        # 4. t-SNE结果（按批次）
+        ax = axes[1, 1]
+        for batch, color in zip(unique_batches, batch_colors):
+            mask = df_sc['batch'] == batch
+            ax.scatter(tsne_result[mask, 0], tsne_result[mask, 1], 
+                      c=[color], label=batch, alpha=0.7, s=50)
+        ax.set_title('t-SNE - 按实验批次')
+        ax.set_xlabel('t-SNE 1')
+        ax.set_ylabel('t-SNE 2')
+        ax.legend()
+        
+        plt.tight_layout()
+        plt.savefig('single_cell_analysis.png', dpi=150, bbox_inches='tight')
+        plt.show()
+    
+    # 细胞分型预测
+    print(f"\n细胞分型预测:")
+    
+    # 准备数据
+    X = expression_scaled
+    y = df_sc['cell_type']
+    
+    # 分离训练和测试集
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3, random_state=42, stratify=y
+    )
+    
+    # 训练随机森林分类器
+    rf_classifier = RandomForestClassifier(
+        n_estimators=100,
+        random_state=42,
+        class_weight='balanced'  # 处理类别不平衡
+    )
+    
+    rf_classifier.fit(X_train, y_train)
+    y_pred = rf_classifier.predict(X_test)
+    
+    # 评估结果
+    accuracy = accuracy_score(y_test, y_pred)
+    print(f"分类准确率: {accuracy:.3f}")
+    
+    if len(y_test) > 0:
+        print("\n详细分类报告:")
+        print(classification_report(y_test, y_pred))
+    
+    # 特征重要性分析
+    print(f"\n重要基因标记:")
+    feature_importance = pd.DataFrame({
+        'gene': gene_cols,
+        'importance': rf_classifier.feature_importances_
+    }).sort_values('importance', ascending=False)
+    
+    print("Top 5 重要基因:")
+    print(feature_importance.head().to_string(index=False))
+    
+    print(f"\n生物学解释:")
+    print("• CD3D, CD4: T细胞标记基因")
+    print("• MS4A1, CD19: B细胞标记基因") 
+    print("• LYZ, CSF1R: 单核细胞/巨噬细胞标记")
+    print("• NKG7, KLRD1: NK细胞标记")
+    print("• 特征重要性反映基因在细胞分型中的贡献")
+
+
+def handle_cancer_clinical_data():
+    """
+    处理癌症临床数据进行预后预测
+    
+    🧬 生物学背景：
+    癌症预后预测是精准医疗的重要应用：
+    - 临床特征：年龄、性别、分期、分级
+    - 分子标记：关键基因表达水平
+    - 治疗信息：手术、化疗、放疗方案
+    - 生存数据：生存时间、生存状态
+    
+    🔬 教学目标：
+    • 学会处理混合数据类型（数值、分类）
+    • 理解特征工程在临床数据中的应用
+    • 掌握生存预测的建模策略
+    • 解释模型结果的临床意义
+    """
+    print_section("Part 5.2: 癌症临床数据分析")
+    
+    import os
+    
+    # 读取癌症临床数据
+    data_file = os.path.join("..", "data", "cancer_clinical_data.csv")
+    
+    try:
+        print("读取癌症临床数据...")
+        df_cancer = pd.read_csv(data_file)
+        print(f"数据加载成功: {df_cancer.shape[0]} 患者 × {df_cancer.shape[1]} 特征")
+    except FileNotFoundError:
+        print("数据文件未找到，跳过癌症数据分析")
+        return
+    
+    # 数据预览
+    print(f"\n数据预览:")
+    print(df_cancer.head())
+    
+    # 数据结构分析
+    print(f"\n数据结构分析:")
+    clinical_cols = ['age', 'gender', 'stage', 'grade', 'treatment']
+    survival_cols = ['survival_months', 'vital_status']
+    gene_cols = [col for col in df_cancer.columns 
+                 if col not in clinical_cols + survival_cols + ['patient_id']]
+    
+    print(f"  - 临床特征: {len(clinical_cols)} 个")
+    print(f"  - 生存信息: {len(survival_cols)} 个")
+    print(f"  - 基因表达: {len(gene_cols)} 个")
+    
+    # 描述性统计
+    print(f"\n📈 描述性统计:")
+    print(f"患者特征:")
+    print(f"  - 年龄范围: {df_cancer['age'].min()}-{df_cancer['age'].max()} 岁")
+    print(f"  - 性别分布: {df_cancer['gender'].value_counts().to_dict()}")
+    print(f"  - 分期分布: {df_cancer['stage'].value_counts().to_dict()}")
+    print(f"  - 生存状态: {df_cancer['vital_status'].value_counts().to_dict()}")
+    print(f"  - 平均生存时间: {df_cancer['survival_months'].mean():.1f} 月")
+    
+    # 数据清洗和预处理
+    print(f"\n⚡ 数据预处理:")
+    
+    # 1. 编码分类变量
+    le_gender = LabelEncoder()
+    le_stage = LabelEncoder()
+    le_grade = LabelEncoder()
+    le_treatment = LabelEncoder()
+    le_vital = LabelEncoder()
+    
+    df_processed = df_cancer.copy()
+    df_processed['gender_encoded'] = le_gender.fit_transform(df_cancer['gender'])
+    df_processed['stage_encoded'] = le_stage.fit_transform(df_cancer['stage'])
+    df_processed['grade_encoded'] = le_grade.fit_transform(df_cancer['grade'])
+    df_processed['treatment_encoded'] = le_treatment.fit_transform(df_cancer['treatment'])
+    df_processed['vital_status_encoded'] = le_vital.fit_transform(df_cancer['vital_status'])
+    
+    print("分类变量编码完成:")
+    print(f"  - 性别: {list(le_gender.classes_)}")
+    print(f"  - 分期: {list(le_stage.classes_)}")
+    print(f"  - 治疗: {list(le_treatment.classes_)}")
+    
+    # 2. 特征工程
+    print(f"\n特征工程:")
+    
+    # 创建组合特征
+    df_processed['age_stage_score'] = df_processed['age'] * df_processed['stage_encoded']
+    df_processed['gene_risk_score'] = df_processed[['TP53', 'BRCA1', 'EGFR']].mean(axis=1)
+    df_processed['oncogene_score'] = df_processed[['MYC', 'KRAS', 'PIK3CA']].mean(axis=1)
+    
+    # 创建年龄组
+    df_processed['age_group'] = pd.cut(df_processed['age'], 
+                                      bins=[0, 45, 60, 100], 
+                                      labels=['Young', 'Middle', 'Old'])
+    df_processed['age_group_encoded'] = LabelEncoder().fit_transform(df_processed['age_group'])
+    
+    print("新特征创建:")
+    print("  - age_stage_score: 年龄-分期交互特征")
+    print("  - gene_risk_score: 肿瘤抑制基因评分")
+    print("  - oncogene_score: 癌基因评分")
+    print("  - age_group: 年龄分组")
+    
+    # 3. 特征选择
+    feature_cols = (['age', 'gender_encoded', 'stage_encoded', 'grade_encoded', 
+                    'treatment_encoded'] + gene_cols + 
+                    ['age_stage_score', 'gene_risk_score', 'oncogene_score', 'age_group_encoded'])
+    
+    X = df_processed[feature_cols]
+    y_survival = df_processed['vital_status_encoded']  # 生存状态预测
+    y_time = df_processed['survival_months']          # 生存时间预测
+    
+    # 数据标准化
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+    
+    print(f"\n最终特征矩阵: {X_scaled.shape}")
+    
+    # 生存状态预测
+    print(f"\n生存状态预测模型:")
+    
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_scaled, y_survival, test_size=0.3, random_state=42, stratify=y_survival
+    )
+    
+    # 比较多种模型
+    models = {
+        'Random Forest': RandomForestClassifier(n_estimators=100, random_state=42),
+        'Logistic Regression': LogisticRegression(random_state=42, max_iter=1000),
+        'SVM': SVC(random_state=42, probability=True)
+    }
+    
+    results = {}
+    for name, model in models.items():
+        # 训练模型
+        model.fit(X_train, y_train)
+        
+        # 预测和评估
+        y_pred = model.predict(X_test)
+        y_pred_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, 'predict_proba') else None
+        
+        accuracy = accuracy_score(y_test, y_pred)
+        f1 = f1_score(y_test, y_pred)
+        auc = roc_auc_score(y_test, y_pred_proba) if y_pred_proba is not None else None
+        
+        results[name] = {
+            'accuracy': accuracy,
+            'f1_score': f1,
+            'auc': auc,
+            'model': model
+        }
+        
+        print(f"{name}:")
+        print(f"  - 准确率: {accuracy:.3f}")
+        print(f"  - F1分数: {f1:.3f}")
+        if auc:
+            print(f"  - AUC: {auc:.3f}")
+    
+    # 特征重要性分析（使用最佳模型）
+    best_model_name = max(results.keys(), key=lambda x: results[x]['accuracy'])
+    best_model = results[best_model_name]['model']
+    
+    print(f"\n特征重要性分析 (基于{best_model_name}):")
+    
+    if hasattr(best_model, 'feature_importances_'):
+        importance_df = pd.DataFrame({
+            'feature': feature_cols,
+            'importance': best_model.feature_importances_
+        }).sort_values('importance', ascending=False)
+        
+        print("Top 10 重要特征:")
+        print(importance_df.head(10).to_string(index=False))
+        
+        # 可视化特征重要性
+        plt.figure(figsize=(10, 6))
+        top_features = importance_df.head(10)
+        plt.barh(range(len(top_features)), top_features['importance'])
+        plt.yticks(range(len(top_features)), top_features['feature'])
+        plt.xlabel('特征重要性')
+        plt.title(f'特征重要性排序 ({best_model_name})')
+        plt.gca().invert_yaxis()
+        plt.tight_layout()
+        plt.savefig('feature_importance_cancer.png', dpi=150, bbox_inches='tight')
+        plt.show()
+    
+    # 生存曲线分析（简化版）
+    print(f"\n生存分析:")
+    
+    # 按风险评分分组
+    risk_scores = best_model.predict_proba(X_scaled)[:, 1] if hasattr(best_model, 'predict_proba') else best_model.decision_function(X_scaled)
+    df_processed['risk_score'] = risk_scores
+    
+    # 分为高风险和低风险组
+    risk_threshold = np.median(risk_scores)
+    df_processed['risk_group'] = df_processed['risk_score'].apply(
+        lambda x: 'High Risk' if x > risk_threshold else 'Low Risk'
+    )
+    
+    print("风险分层结果:")
+    risk_summary = df_processed.groupby('risk_group').agg({
+        'survival_months': ['count', 'mean', 'std'],
+        'vital_status': lambda x: (x == 'Dead').sum()
+    })
+    print(risk_summary)
+    
+    print(f"\n临床解释:")
+    print("• 分期和分级是最重要的预后因素")
+    print("• TP53和BRCA1等肿瘤抑制基因表达影响预后")
+    print("• 年龄和治疗方案也对生存有显著影响")
+    print("• 多基因评分可以改善预后预测准确性")
+    
+    return df_processed
+
+
+def demonstrate_batch_effect_correction():
+    """
+    演示批次效应检测和校正
+    
+    🧬 生物学背景：
+    批次效应是生物数据分析中的重要问题：
+    - 技术批次：不同实验批次、操作人员、试剂批号
+    - 生物批次：不同时间、地点、种群的样本
+    - 系统性偏差：影响所有基因的非生物学因素
+    
+    🔬 处理策略：
+    • 检测：PCA分析、聚类分析观察批次聚集
+    • 校正：ComBat算法、线性混合模型
+    • 验证：校正前后效果对比
+    """
+    print_section("Part 5.3: 批次效应检测与校正")
+    
+    # 创建带批次效应的模拟数据
+    print("创建批次效应模拟数据...")
+    
+    np.random.seed(42)
+    n_samples = 60
+    n_genes = 20
+    
+    # 创建两个批次的数据
+    batch1_data = np.random.normal(5, 1, (30, n_genes))  # 批次1：均值5
+    batch2_data = np.random.normal(7, 1, (30, n_genes))  # 批次2：均值7（系统性升高）
+    
+    # 添加生物学信号（部分基因在不同条件下差异表达）
+    condition1_indices = list(range(0, 15)) + list(range(30, 45))  # 条件1
+    condition2_indices = list(range(15, 30)) + list(range(45, 60)) # 条件2
+    
+    # 在部分基因中添加条件特异性信号
+    for gene_idx in [0, 1, 2]:  # 前3个基因有条件效应
+        batch1_data[15:30, gene_idx] += 2  # 批次1中条件2样本上调
+        batch2_data[15:30, gene_idx] += 2  # 批次2中条件2样本上调
+    
+    # 组合数据
+    expression_data = np.vstack([batch1_data, batch2_data])
+    
+    # 创建元数据
+    batch_labels = ['Batch1'] * 30 + ['Batch2'] * 30
+    condition_labels = (['Condition1'] * 15 + ['Condition2'] * 15) * 2
+    
+    df_batch = pd.DataFrame({
+        'sample_id': [f'Sample_{i:03d}' for i in range(n_samples)],
+        'batch': batch_labels,
+        'condition': condition_labels,
+        **{f'Gene_{i:02d}': expression_data[:, i] for i in range(n_genes)}
+    })
+    
+    gene_cols = [f'Gene_{i:02d}' for i in range(n_genes)]
+    
+    print(f"数据创建完成: {n_samples} 样本 × {n_genes} 基因")
+    print(f"批次分布: {pd.Series(batch_labels).value_counts().to_dict()}")
+    print(f"条件分布: {pd.Series(condition_labels).value_counts().to_dict()}")
+    
+    # 1. 批次效应检测
+    print(f"\n批次效应检测:")
+    
+    # PCA分析检测批次效应
+    pca = PCA(n_components=3)
+    pca_result = pca.fit_transform(df_batch[gene_cols])
+    
+    print(f"PCA分析:")
+    print(f"  - PC1解释方差: {pca.explained_variance_ratio_[0]:.3f}")
+    print(f"  - PC2解释方差: {pca.explained_variance_ratio_[1]:.3f}")
+    print(f"  - 前2个PC累计解释方差: {pca.explained_variance_ratio_[:2].sum():.3f}")
+    
+    # 可视化批次效应
+    fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+    fig.suptitle('批次效应检测与校正', fontsize=14)
+    
+    # 校正前 - 按批次着色
+    ax = axes[0, 0]
+    for batch in df_batch['batch'].unique():
+        mask = df_batch['batch'] == batch
+        color = 'red' if batch == 'Batch1' else 'blue'
+        ax.scatter(pca_result[mask, 0], pca_result[mask, 1], 
+                  c=color, label=batch, alpha=0.7, s=50)
+    ax.set_title('校正前 - 按批次着色')
+    ax.set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]:.2f})')
+    ax.set_ylabel(f'PC2 ({pca.explained_variance_ratio_[1]:.2f})')
+    ax.legend()
+    
+    # 校正前 - 按条件着色
+    ax = axes[0, 1]
+    for condition in df_batch['condition'].unique():
+        mask = df_batch['condition'] == condition
+        color = 'green' if condition == 'Condition1' else 'orange'
+        ax.scatter(pca_result[mask, 0], pca_result[mask, 1], 
+                  c=color, label=condition, alpha=0.7, s=50)
+    ax.set_title('校正前 - 按条件着色')
+    ax.set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]:.2f})')
+    ax.set_ylabel(f'PC2 ({pca.explained_variance_ratio_[1]:.2f})')
+    ax.legend()
+    
+    # 2. 批次效应校正（简化版ComBat）
+    print(f"\n批次效应校正:")
+    
+    # 简化的批次校正：z-score标准化 + 批次均值居中
+    corrected_data = df_batch[gene_cols].copy()
+    
+    # 按批次进行z-score标准化
+    for batch in df_batch['batch'].unique():
+        batch_mask = df_batch['batch'] == batch
+        batch_data = corrected_data[batch_mask]
+        
+        # 计算批次内的均值和标准差
+        batch_mean = batch_data.mean()
+        batch_std = batch_data.std()
+        
+        # z-score标准化
+        corrected_data.loc[batch_mask] = (batch_data - batch_mean) / batch_std
+    
+    # 全局重新缩放
+    global_mean = df_batch[gene_cols].mean().mean()
+    global_std = df_batch[gene_cols].std().mean()
+    corrected_data = corrected_data * global_std + global_mean
+    
+    print("校正步骤:")
+    print("  1. 批次内z-score标准化")
+    print("  2. 全局均值方差重新缩放")
+    print(f"  3. 校正前数据范围: [{df_batch[gene_cols].min().min():.2f}, {df_batch[gene_cols].max().max():.2f}]")
+    print(f"  4. 校正后数据范围: [{corrected_data.min().min():.2f}, {corrected_data.max().max():.2f}]")
+    
+    # 校正后PCA分析
+    pca_corrected = PCA(n_components=3)
+    pca_corrected_result = pca_corrected.fit_transform(corrected_data)
+    
+    # 校正后 - 按批次着色
+    ax = axes[1, 0]
+    for batch in df_batch['batch'].unique():
+        mask = df_batch['batch'] == batch
+        color = 'red' if batch == 'Batch1' else 'blue'
+        ax.scatter(pca_corrected_result[mask, 0], pca_corrected_result[mask, 1], 
+                  c=color, label=batch, alpha=0.7, s=50)
+    ax.set_title('校正后 - 按批次着色')
+    ax.set_xlabel(f'PC1 ({pca_corrected.explained_variance_ratio_[0]:.2f})')
+    ax.set_ylabel(f'PC2 ({pca_corrected.explained_variance_ratio_[1]:.2f})')
+    ax.legend()
+    
+    # 校正后 - 按条件着色
+    ax = axes[1, 1]
+    for condition in df_batch['condition'].unique():
+        mask = df_batch['condition'] == condition
+        color = 'green' if condition == 'Condition1' else 'orange'
+        ax.scatter(pca_corrected_result[mask, 0], pca_corrected_result[mask, 1], 
+                  c=color, label=condition, alpha=0.7, s=50)
+    ax.set_title('校正后 - 按条件着色')
+    ax.set_xlabel(f'PC1 ({pca_corrected.explained_variance_ratio_[0]:.2f})')
+    ax.set_ylabel(f'PC2 ({pca_corrected.explained_variance_ratio_[1]:.2f})')
+    ax.legend()
+    
+    plt.tight_layout()
+    plt.savefig('batch_effect_correction.png', dpi=150, bbox_inches='tight')
+    plt.show()
+    
+    # 3. 校正效果评估
+    print(f"\n校正效果评估:")
+    
+    # 计算批次间距离
+    def calculate_batch_separation(data, batch_labels):
+        """计算不同批次间的平均距离"""
+        distances = []
+        for i in range(len(data)):
+            for j in range(i+1, len(data)):
+                if batch_labels[i] != batch_labels[j]:
+                    dist = np.linalg.norm(data[i] - data[j])
+                    distances.append(dist)
+        return np.mean(distances)
+    
+    # 校正前后批次分离度
+    orig_separation = calculate_batch_separation(pca_result[:, :2], batch_labels)
+    corrected_separation = calculate_batch_separation(pca_corrected_result[:, :2], batch_labels)
+    
+    print(f"批次分离度评估:")
+    print(f"  - 校正前批次间平均距离: {orig_separation:.3f}")
+    print(f"  - 校正后批次间平均距离: {corrected_separation:.3f}")
+    print(f"  - 改善程度: {(orig_separation - corrected_separation) / orig_separation * 100:.1f}%")
+    
+    # 计算生物学信号保留
+    def calculate_condition_separation(data, condition_labels):
+        """计算不同条件间的平均距离"""
+        distances = []
+        for i in range(len(data)):
+            for j in range(i+1, len(data)):
+                if condition_labels[i] != condition_labels[j]:
+                    dist = np.linalg.norm(data[i] - data[j])
+                    distances.append(dist)
+        return np.mean(distances)
+    
+    orig_bio_signal = calculate_condition_separation(pca_result[:, :2], condition_labels)
+    corrected_bio_signal = calculate_condition_separation(pca_corrected_result[:, :2], condition_labels)
+    
+    print(f"\n生物学信号保留:")
+    print(f"  - 校正前条件间距离: {orig_bio_signal:.3f}")
+    print(f"  - 校正后条件间距离: {corrected_bio_signal:.3f}")
+    print(f"  - 信号保留率: {corrected_bio_signal / orig_bio_signal * 100:.1f}%")
+    
+    print(f"\n批次校正建议:")
+    print("- 始终在分析前检查批次效应")
+    print("- 实验设计时随机分配样本到不同批次")
+    print("- 使用专业工具如ComBat、limma进行校正")
+    print("- 校正后验证生物学信号是否保留")
+    print("- 批次和条件不要完全混杂")
+
+
+# ====================
 # 主函数
 # ====================
 
@@ -895,7 +1521,7 @@ def main():
     """
     
     print("="*60)
-    print("🧬 Chapter 10: 机器学习入门 - 模式识别的艺术")
+    print("Chapter 10: 机器学习入门 - 模式识别的艺术")
     print("="*60)
     print("""
 欢迎来到机器学习的世界！
@@ -905,7 +1531,7 @@ def main():
     
     # Part 1: 监督学习
     print("\n" + "="*60)
-    print("📚 第一部分：监督学习 - 教会计算机识别")
+    print("第一部分：监督学习 - 教会计算机识别")
     print("="*60)
     
     # 创建基因分类数据
@@ -925,7 +1551,7 @@ def main():
     
     # Part 2: 无监督学习
     print("\n" + "="*60)
-    print("📚 第二部分：无监督学习 - 发现隐藏模式")
+    print("第二部分：无监督学习 - 发现隐藏模式")
     print("="*60)
     
     # 创建细胞表达数据
@@ -943,7 +1569,7 @@ def main():
     
     # Part 3: 特征工程与优化
     print("\n" + "="*60)
-    print("📚 第三部分：特征工程与模型优化")
+    print("第三部分：特征工程与模型优化")
     print("="*60)
     
     # 特征工程演示
@@ -954,68 +1580,95 @@ def main():
     
     # Part 4: 深度学习
     print("\n" + "="*60)
-    print("📚 第四部分：深度学习初探")
+    print("第四部分：深度学习初探")
     print("="*60)
     
     # 深度学习介绍
     introduction_to_deep_learning()
     
-    # 总结
+    # Part 5: 真实数据处理实战
     print("\n" + "="*60)
-    print("📚 课程总结")
+    print("第五部分：真实数据处理实战")
     print("="*60)
     
     print("""
-🎯 本章核心要点：
+实战能力训练：
+本部分将使用真实的生物数据，训练你处理实际科研中遇到的数据挑战。
+包括批次效应、数据质量控制、特征工程等关键技能。
+    """)
+    
+    # 真实单细胞数据处理
+    handle_real_single_cell_data()
+    
+    # 真实癌症临床数据分析
+    handle_cancer_clinical_data()
+    
+    # 批次效应检测和校正
+    demonstrate_batch_effect_correction()
+    
+    # 总结
+    print("\n" + "="*60)
+    print("课程总结")
+    print("="*60)
+    
+    print("""
+本章核心要点：
 
-🤖 机器学习基础：
-   ✅ 监督学习：有老师的学习（分类、回归）
-   ✅ 无监督学习：发现隐藏模式（聚类、降维）
-   ✅ 模型评估：准确率、精确率、召回率、AUC
+机器学习基础：
+   - 监督学习：有老师的学习（分类、回归）
+   - 无监督学习：发现隐藏模式（聚类、降维）
+   - 模型评估：准确率、精确率、召回率、AUC
 
-🔧 实践技能：
-   ✅ 数据预处理：清洗、转换、标准化
-   ✅ 特征工程：提取、选择、构造特征
-   ✅ 模型选择：比较多种算法性能
-   ✅ 超参数调优：网格搜索、贝叶斯优化
+实践技能：
+   - 数据预处理：清洗、转换、标准化
+   - 特征工程：提取、选择、构造特征
+   - 模型选择：比较多种算法性能
+   - 超参数调优：网格搜索、贝叶斯优化
 
-🧬 生物学应用：
-   ✅ 基因功能预测：从序列到功能
-   ✅ 细胞类型识别：单细胞分析革命
-   ✅ 疾病分类诊断：精准医疗基础
-   ✅ 药物靶点发现：AI加速药物研发
+生物学应用：
+   - 基因功能预测：从序列到功能
+   - 细胞类型识别：单细胞分析革命
+   - 疾病分类诊断：精准医疗基础
+   - 药物靶点发现：AI加速药物研发
 
-⚠️ 关键注意事项：
-   🚫 避免过拟合：交叉验证 + 正则化
-   ⚖️ 处理不平衡：权重调整 + 采样策略
-   🎯 特征选择：去除噪声，保留信号
-   🤔 结果解释：结合领域知识是关键
+实战技能（新增）：
+   - 真实数据处理：单细胞RNA-seq分析流程
+   - 临床数据建模：癌症预后预测实战
+   - 批次效应校正：多批次数据整合技术
+   - 质量控制：数据预处理和清洗流程
+
+关键注意事项：
+   - 避免过拟合：交叉验证 + 正则化
+   - 处理不平衡：权重调整 + 采样策略
+   - 特征选择：去除噪声，保留信号
+   - 结果解释：结合领域知识是关键
+   - 批次效应：检测和校正系统性偏差
     """)
     
     print("""
-🎆 恭喜你完成机器学习入门课程！
+恭喜你完成机器学习入门课程！
 
-🏆 你已经掌握：
-✅ 使用scikit-learn进行机器学习
-✅ 理解监督与无监督学习的本质区别
-✅ 掌握模型评估和优化技巧
-✅ 在生物信息学中应用机器学习
-✅ 理解深度学习的潜力和应用
+你已经掌握：
+- 使用scikit-learn进行机器学习
+- 理解监督与无监督学习的本质区别
+- 掌握模型评估和优化技巧
+- 在生物信息学中应用机器学习
+- 理解深度学习的潜力和应用
 
-🚀 下一步建议：
-1️⃣ 实践项目：尝试TCGA、GEO等真实数据集
-2️⃣ 深度学习：学习PyTorch/TensorFlow框架
-3️⃣ 专业工具：掌握Scanpy、Seurat、DESeq2
-4️⃣ 竞赛参与：Kaggle生物信息学挑战赛
-5️⃣ 开源贡献：参与生物信息学开源项目
+下一步建议：
+1. 实践项目：尝试TCGA、GEO等真实数据集
+2. 深度学习：学习PyTorch/TensorFlow框架
+3. 专业工具：掌握Scanpy、Seurat、DESeq2
+4. 竞赛参与：Kaggle生物信息学挑战赛
+5. 开源贡献：参与生物信息学开源项目
 
-💡 核心理念：
-“机器学习是工具，生物学知识是灵魂！”
+核心理念：
+"机器学习是工具，生物学知识是灵魂！"
 
 将AI技术与生物学洞察完美结合，
 你将成为新时代的计算生物学家！
 
-🧬🤖🔬 继续探索，改变世界！
+继续探索，改变世界！
     """)
 
 
