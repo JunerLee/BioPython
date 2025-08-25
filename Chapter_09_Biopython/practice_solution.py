@@ -118,6 +118,122 @@ def practice_2_file_parsing_solution():
         print(genbank_output.getvalue()[:200] + "...")
 
 
+def practice_2_bonus_real_data_solution():
+    """
+    练习2加分题答案: 使用真实生物数据
+    
+    生物学类比：这就像分析实验室收到的真实样本 - 
+    每个基因都有其独特的"指纹"和生物学功能
+    """
+    print("\n🎯 练习2加分题 [基础]: 使用真实生物数据 - 参考答案")
+    print("-" * 50)
+    
+    import os
+    
+    # 真实数据文件路径
+    fasta_file = os.path.join("..", "data", "dna_sequence.fasta")
+    
+    print(f"尝试读取文件: {fasta_file}")
+    
+    # 检查文件是否存在
+    if not os.path.exists(fasta_file):
+        print(f"❌ 文件未找到: {fasta_file}")
+        print("提示：请确保运行目录正确，或使用相对路径")
+        return
+    
+    # 解析真实FASTA文件
+    try:
+        records = list(SeqIO.parse(fasta_file, "fasta"))
+        print(f"✅ 成功读取 {len(records)} 条序列\n")
+    except Exception as e:
+        print(f"❌ 读取文件时出错: {e}")
+        return
+    
+    # 存储分析结果
+    gene_stats = []
+    
+    # 分析每个基因序列
+    for i, record in enumerate(records, 1):
+        print(f"--- 基因 {i}: {record.id} ---")
+        print(f"描述: {record.description}")
+        
+        seq_len = len(record.seq)
+        gc_content = GC(record.seq)
+        
+        print(f"序列长度: {seq_len} bp")
+        print(f"GC含量: {gc_content:.2f}%")
+        print(f"序列预览: {record.seq[:50]}...")
+        
+        # 分析序列组成
+        seq_str = str(record.seq)
+        a_count = seq_str.count('A')
+        t_count = seq_str.count('T') 
+        g_count = seq_str.count('G')
+        c_count = seq_str.count('C')
+        n_count = seq_str.count('N')
+        
+        print(f"碱基组成: A={a_count}, T={t_count}, G={g_count}, C={c_count}")
+        if n_count > 0:
+            print(f"未知碱基(N): {n_count}")
+        
+        # 计算AT/GC比例
+        at_content = (a_count + t_count) / seq_len * 100
+        print(f"AT含量: {at_content:.2f}%")
+        
+        # 检查起始和终止密码子
+        starts_with_atg = str(record.seq[:3]) == 'ATG'
+        ends_with_stop = str(record.seq[-3:]) in ['TAA', 'TAG', 'TGA']
+        
+        print(f"以ATG起始: {'是' if starts_with_atg else '否'}")
+        print(f"以终止密码子结尾: {'是' if ends_with_stop else '否'}")
+        
+        # 存储统计信息
+        gene_stats.append({
+            'id': record.id,
+            'description': record.description,
+            'length': seq_len,
+            'gc_content': gc_content,
+            'starts_with_atg': starts_with_atg
+        })
+        
+        print()
+    
+    # 比较分析
+    print("=== 比较分析 ===")
+    
+    # 找出最长/最短序列
+    longest = max(gene_stats, key=lambda x: x['length'])
+    shortest = min(gene_stats, key=lambda x: x['length'])
+    
+    print(f"最长序列: {longest['id']} ({longest['length']} bp)")
+    print(f"最短序列: {shortest['id']} ({shortest['length']} bp)")
+    
+    # 计算平均GC含量
+    avg_gc = sum(g['gc_content'] for g in gene_stats) / len(gene_stats)
+    print(f"平均GC含量: {avg_gc:.2f}%")
+    
+    # 识别管家基因特征
+    housekeeping_genes = ['GAPDH', 'ACTB']  # 管家基因
+    tumor_genes = ['BRCA1', 'TP53']         # 肿瘤相关基因
+    
+    print("\n--- 功能分类分析 ---")
+    for gene in gene_stats:
+        gene_name = gene['id'].split('_')[1] if '_' in gene['id'] else gene['id']
+        
+        if any(hk in gene_name for hk in housekeeping_genes):
+            print(f"🏠 {gene_name}: 管家基因 (GC: {gene['gc_content']:.1f}%)")
+        elif any(tg in gene_name for tg in tumor_genes):
+            print(f"🎯 {gene_name}: 肿瘤相关基因 (GC: {gene['gc_content']:.1f}%)")
+        else:
+            print(f"🧬 {gene_name}: 其他功能基因 (GC: {gene['gc_content']:.1f}%)")
+    
+    print("\n💡 生物学洞察:")
+    print("1. 管家基因(GAPDH, ACTB)通常GC含量较高，表达更稳定")
+    print("2. 肿瘤抑制基因(BRCA1, TP53)长度较长，结构复杂")
+    print("3. 不同功能基因的序列特征反映其生物学作用")
+    print("4. 序列长度和GC含量是基因功能分类的重要指标")
+
+
 def practice_3_orf_finding_solution():
     """
     练习3答案: 开放阅读框(ORF)查找
@@ -847,6 +963,7 @@ def main():
     print("=" * 60)
     practice_1_basic_seq_solution()
     practice_2_file_parsing_solution()
+    practice_2_bonus_real_data_solution()
     
     # 进阶练习答案
     print("\n" + "=" * 60)

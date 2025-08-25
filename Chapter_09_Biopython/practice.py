@@ -82,6 +82,71 @@ def practice_2_file_parsing():
     print("请完成文件解析任务...")
 
 
+def practice_2_bonus_real_data():
+    """
+    练习2加分题 [基础]: 使用真实生物数据
+    
+    任务：
+    1. 读取data目录中的真实FASTA文件
+    2. 分析每个基因的基本特征
+    3. 比较不同基因的序列特点
+    4. 识别最保守和最多样化的区域
+    """
+    print("\n🎯 练习2加分题 [基础]: 使用真实生物数据")
+    print("-" * 50)
+    
+    import os
+    
+    # 真实数据文件路径
+    fasta_file = os.path.join("..", "data", "dna_sequence.fasta")
+    
+    print(f"尝试读取文件: {fasta_file}")
+    
+    # TODO: 检查文件是否存在
+    # if not os.path.exists(fasta_file):
+    #     print(f"❌ 文件未找到: {fasta_file}")
+    #     print("提示：请确保运行目录正确，或使用相对路径")
+    #     return
+    
+    # TODO: 解析真实FASTA文件
+    # try:
+    #     records = list(SeqIO.parse(fasta_file, "fasta"))
+    #     print(f"✅ 成功读取 {len(records)} 条序列")
+    # except Exception as e:
+    #     print(f"❌ 读取文件时出错: {e}")
+    #     return
+    
+    # TODO: 分析每个基因序列
+    # for i, record in enumerate(records, 1):
+    #     print(f"\n--- 基因 {i}: {record.id} ---")
+    #     print(f"描述: {record.description}")
+    #     print(f"序列长度: {len(record.seq)} bp")
+    #     print(f"GC含量: {GC(record.seq):.2f}%")
+    #     print(f"序列预览: {record.seq[:50]}...")
+    #     
+    #     # 分析序列组成
+    #     seq_str = str(record.seq)
+    #     a_count = seq_str.count('A')
+    #     t_count = seq_str.count('T') 
+    #     g_count = seq_str.count('G')
+    #     c_count = seq_str.count('C')
+    #     print(f"碱基组成: A={a_count}, T={t_count}, G={g_count}, C={c_count}")
+    
+    # TODO: 比较分析
+    # 找出最长/最短序列
+    # 计算所有序列的平均GC含量
+    # 识别共同的序列特征
+    
+    print("\n💡 分析提示:")
+    print("1. BRCA1和TP53是重要的肿瘤抑制基因")
+    print("2. GAPDH和ACTB是常用的管家基因")
+    print("3. VEGFA与血管生成相关")
+    print("4. 比较不同功能基因的序列特征差异")
+    print("5. 思考：为什么管家基因通常GC含量较高？")
+    
+    print("请完成真实数据分析任务...")
+
+
 def practice_3_orf_finding():
     """
     练习3 [进阶]: 开放阅读框(ORF)查找
@@ -405,6 +470,7 @@ def main():
     print("=" * 60)
     practice_1_basic_seq()
     practice_2_file_parsing()
+    practice_2_bonus_real_data()
     
     # 进阶练习
     print("\n" + "=" * 60)
