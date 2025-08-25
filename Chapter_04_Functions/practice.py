@@ -35,14 +35,11 @@ def practice_1_your_first_function():
     #     3. 计算百分比
     #     4. 返回结果
     #     """
-    #     # 步骤1: 统计A的数量
+    #     # 步骤1: 统计A和T的数量
+    #     at_count = sequence.count('A') + sequence.count('T')
     #     
-    #     # 步骤2: 统计T的数量
-    #     
-    #     # 步骤3: 计算总长度
-    #     
-    #     # 步骤4: 计算百分比并返回
-    #     pass
+    #     # 步骤2: 计算百分比并返回
+    #     return (at_count / len(sequence)) * 100
     
     # 测试你的函数
     test_sequences = [
@@ -89,13 +86,16 @@ def practice_2_function_with_validation():
     #         return 0.0
     #     
     #     # 质控步骤2: 标准化（转大写）
+    #     sequence = sequence.upper()
     #     
     #     # 质控步骤3: 验证碱基
-    #     
-    #     # 如果验证失败，返回-1表示错误
+    #     valid_bases = set('ATCG')
+    #     if not all(base in valid_bases for base in sequence):
+    #         return -1  # 错误标识
     #     
     #     # 计算AT含量
-    #     pass
+    #     at_count = sequence.count('A') + sequence.count('T')
+    #     return (at_count / len(sequence)) * 100
     
     # 测试各种输入
     test_cases = [
@@ -144,12 +144,13 @@ def practice_3_function_with_parameters():
     #     - 退火温度（line_length）
     #     - 循环数（show_position）
     #     """
-    #     # 将序列分成指定长度的片段
-    #     
-    #     # 如果show_position为True，添加位置编号
-    #     
-    #     # 返回格式化的字符串
-    #     pass
+    #     lines = []
+    #     for i in range(0, len(sequence), line_length):
+    #         line = sequence[i:i+line_length]
+    #         if show_position:
+    #             line = f"{i+1:3d}: {line}"
+    #         lines.append(line)
+    #     return '\n'.join(lines)
     
     # 测试序列
     test_seq = "ATCGATCGATCGATCGATCG"
@@ -217,10 +218,16 @@ def practice_4_function_refactoring():
     #     
     #     将重复的分析步骤封装为标准流程
     #     """
-    #     # 计算各项指标
+    #     length = len(sequence)
+    #     gc_content = (sequence.count('G') + sequence.count('C')) / length * 100
+    #     at_content = (sequence.count('A') + sequence.count('T')) / length * 100
     #     
-    #     # 返回分析结果
-    #     pass
+    #     return {
+    #         'name': gene_name,
+    #         'length': length,
+    #         'gc_content': gc_content,
+    #         'at_content': at_content
+    #     }
     
     # TODO: 使用函数重构
     # genes = {
@@ -232,7 +239,8 @@ def practice_4_function_refactoring():
     # print("\n重构后的代码:")
     # for name, seq in genes.items():
     #     result = analyze_gene(seq, name)
-    #     # 打印结果
+    #     print(f"{result['name']}: 长度={result['length']}, "
+    #           f"GC={result['gc_content']:.1f}%, AT={result['at_content']:.1f}%")
 
 
 def practice_5_function_composition():
@@ -253,23 +261,28 @@ def practice_5_function_composition():
     
     # def validate_sequence(sequence):
     #     """步骤1: 验证序列"""
-    #     # 检查是否只包含ATCG
-    #     pass
+    #     return all(b in 'ATCGN' for b in sequence.upper())
     # 
     # def clean_sequence(sequence):
     #     """步骤2: 清理序列"""
-    #     # 转大写，去除空格
-    #     pass
+    #     return sequence.strip().upper()
     # 
     # def calculate_metrics(sequence):
     #     """步骤3: 计算指标"""
-    #     # 计算长度、GC含量等
-    #     pass
+    #     length = len(sequence)
+    #     gc_content = (sequence.count('G') + sequence.count('C')) / length * 100
+    #     n_count = sequence.count('N')
+    #     
+    #     return {
+    #         'length': length,
+    #         'gc_content': gc_content,
+    #         'n_count': n_count,
+    #         'quality': 'good' if n_count == 0 else 'poor'
+    #     }
     # 
     # def generate_report(sequence, metrics):
     #     """步骤4: 生成报告"""
-    #     # 格式化输出结果
-    #     pass
+    #     return f"序列分析报告:\n  原序列: {sequence}\n  长度: {metrics['length']} bp\n  GC含量: {metrics['gc_content']:.1f}%\n  质量: {metrics['quality']}"
     # 
     # def analyze_sequence_pipeline(raw_sequence):
     #     """
@@ -277,14 +290,17 @@ def practice_5_function_composition():
     #     组合所有步骤，像完整的实验方案
     #     """
     #     # 步骤1: 验证
+    #     if not validate_sequence(raw_sequence):
+    #         return "错误: 序列包含无效字符"
     #     
     #     # 步骤2: 清理
+    #     clean_seq = clean_sequence(raw_sequence)
     #     
     #     # 步骤3: 分析
+    #     metrics = calculate_metrics(clean_seq)
     #     
     #     # 步骤4: 报告
-    #     
-    #     pass
+    #     return generate_report(clean_seq, metrics)
     
     # 测试流水线
     test_sequences = [
@@ -330,12 +346,25 @@ def practice_6_advanced_function_design():
     #     """
     #     orfs = []
     #     sequence = sequence.upper()
+    #     stop_codons = ['TAA', 'TAG', 'TGA']
     #     
     #     # 查找所有ATG
-    #     
-    #     # 对每个ATG，查找下游的终止密码子
-    #     
-    #     # 验证长度要求
+    #     for i in range(len(sequence) - 2):
+    #         if sequence[i:i+3] == 'ATG':
+    #             # 对每个ATG，查找下游的终止密码子
+    #             for j in range(i + 3, len(sequence), 3):
+    #                 if j + 2 < len(sequence):
+    #                     codon = sequence[j:j+3]
+    #                     if codon in stop_codons:
+    #                         orf_length = j + 3 - i
+    #                         if orf_length >= min_length:
+    #                             orfs.append({
+    #                                 'start': i,
+    #                                 'end': j + 3,
+    #                                 'length': orf_length,
+    #                                 'sequence': sequence[i:j+3]
+    #                             })
+    #                         break
     #     
     #     return orfs
     # 
@@ -349,27 +378,21 @@ def practice_6_advanced_function_design():
     #     codon_table = {
     #         'ATG': 'M',  # 起始
     #         'TAA': '*', 'TAG': '*', 'TGA': '*',  # 终止
-    #         'GCT': 'A', 'GCC': 'A', 'GCA': 'A', 'GCG': 'A',  # 丙氨酸
-    #         'TGT': 'C', 'TGC': 'C',  # 半胱氨酸
-    #         # ... 可以添加更多
+    #         'AAA': 'K', 'AAT': 'N', 'TTT': 'F', 'CCC': 'P'
+    #         # 可以添加更多
     #     }
     #     
     #     # 翻译序列
-    #     pass
-    # 
-    # def analyze_coding_potential(sequence):
-    #     """
-    #     综合分析序列的编码潜力
+    #     protein = ""
+    #     for i in range(0, len(orf_sequence), 3):
+    #         codon = orf_sequence[i:i+3]
+    #         if len(codon) == 3:
+    #             aa = codon_table.get(codon, 'X')
+    #             protein += aa
+    #             if aa == '*':
+    #                 break
     #     
-    #     组合ORF查找和翻译功能
-    #     """
-    #     # 查找ORF
-    #     
-    #     # 翻译每个ORF
-    #     
-    #     # 生成分析报告
-    #     
-    #     pass
+    #     return protein
     
     # 测试序列（包含ORF）
     test_sequence = "ATGAAATTTCCCTAAATGGGGTAG"
@@ -383,8 +406,8 @@ def practice_6_advanced_function_design():
     # for i, orf in enumerate(orfs, 1):
     #     print(f"  ORF{i}: 位置 {orf['start']}-{orf['end']}")
     #     print(f"        序列: {orf['sequence']}")
-    #     # protein = translate_orf(orf['sequence'])
-    #     # print(f"        蛋白: {protein}")
+    #     protein = translate_orf(orf['sequence'])
+    #     print(f"        蛋白: {protein}")
 
 
 def practice_7_error_handling():
@@ -416,21 +439,30 @@ def practice_7_error_handling():
     #     """
     #     try:
     #         # 检查输入类型
+    #         if not isinstance(sequence, str):
+    #             raise TypeError("序列必须是字符串")
     #         
     #         # 检查是否为空
+    #         if not sequence:
+    #             raise ValueError("序列不能为空")
     #         
     #         # 验证序列
+    #         sequence = sequence.upper()
+    #         if not all(b in 'ATCGN' for b in sequence):
+    #             raise ValueError("序列包含无效字符")
     #         
     #         # 根据分析类型执行分析
     #         if analysis_type == "basic":
-    #             # 基础分析
-    #             pass
+    #             gc = (sequence.count('G') + sequence.count('C')) / len(sequence) * 100
+    #             return True, f"GC含量: {gc:.1f}%"
     #         elif analysis_type == "advanced":
     #             # 高级分析
-    #             pass
+    #             length = len(sequence)
+    #             gc = (sequence.count('G') + sequence.count('C')) / length * 100
+    #             n_count = sequence.count('N')
+    #             return True, f"长度: {length}, GC: {gc:.1f}%, N: {n_count}"
     #         else:
-    #             # 不支持的类型
-    #             pass
+    #             raise ValueError(f"不支持的分析类型: {analysis_type}")
     #             
     #     except Exception as e:
     #         return False, str(e)
