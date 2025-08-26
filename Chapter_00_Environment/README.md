@@ -344,7 +344,29 @@ uv sync
 - ✅ 创建虚拟环境（.venv目录）
 - ✅ 安装pyproject.toml中定义的所有依赖
 
-4. **验证环境**：
+4. **激活虚拟环境**（可选，推荐使用uv run）：
+
+**Windows (PowerShell):**
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+**Windows (CMD):**
+```cmd
+.venv\Scripts\activate.bat
+```
+
+**macOS/Linux:**
+```bash
+source .venv/bin/activate
+```
+
+💡 **推荐方式**：直接使用`uv run`命令，无需手动激活：
+```bash
+uv run python your_script.py  # 自动使用虚拟环境
+```
+
+5. **验证环境**：
 ```bash
 # 检查Python版本
 uv run python --version
