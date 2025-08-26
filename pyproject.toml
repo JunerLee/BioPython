@@ -1,9 +1,9 @@
 [project]
-name = "bioinformatics-python-tutorial"
+name = "BioPythonGuide"
 version = "1.0.0"
 description = "Python生物信息学教程 - 面向生物学科学家的零基础教程"
 authors = [
-    {name = "BioPython Tutorial Team", email = "bioinformatics.tutorial@example.com"}
+    {name = "JunerLee", email = "610742553@qq.com"}
 ]
 readme = "README.md"
 license = {text = "MIT"}
