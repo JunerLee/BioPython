@@ -6,7 +6,7 @@ Chapter 01: Python基础 - 像处理DNA一样学编程
 这是你的第一个Python程序！我们将通过计算DNA序列的GC含量来学习Python基础。
 就像在实验室中分析DNA样品一样，我们将一步步进行。
 
-作者：BioPython教程
+作者：BioPythonGuide教程
 目标读者：没有编程经验的生物学研究者
 """
 

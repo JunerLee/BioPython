@@ -1,10 +1,10 @@
-# 🧬 BioPython - 面向生物学家的Python零基础教程
+# 🧬 BioPythonGuide - 面向生物学家的Python零基础教程
 
 > 🎯 **让生物学研究者从零开始掌握Python编程，用代码解决生物学问题**
 
 ## 📖 这个教程是什么？
 
-你好！欢迎来到BioPython教程！
+你好！欢迎来到BioPythonGuide教程！
 
 如果你是一位生物学研究者，经常需要处理DNA序列、分析基因表达数据、绘制专业图表，但又对编程感到陌生，那么这个教程就是为你量身定制的。
 
@@ -97,7 +97,7 @@ uv --version  # 应该显示版本号，如 uv 0.4.0
 
 ```bash
 # 如果你安装了Git
-git clone https://github.com/your-username/BioPython.git
+git clone https://github.com/JunerLee/BioPythonGuide.git
 
 # 或者直接下载ZIP文件并解压
 ```
@@ -105,7 +105,7 @@ git clone https://github.com/your-username/BioPython.git
 #### 4. 创建环境并安装依赖（一条命令搞定！）
 
 ```bash
-cd BioPython  # 进入项目目录
+cd BioPythonGuide  # 进入项目目录
 uv sync       # 自动下载Python、创建虚拟环境、安装所有依赖
 ```
 
@@ -193,7 +193,7 @@ uv run python Chapter_01_Basics/practice_solution.py
 ## 📁 项目文件结构说明
 
 ```
-BioPython/
+BioPythonGuide/
 │
 ├── 📄 README.md                    # 你正在读的这个文件
 ├── 📄 pyproject.toml              # 项目配置文件（定义了需要的软件包）

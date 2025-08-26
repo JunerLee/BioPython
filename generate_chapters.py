@@ -238,7 +238,7 @@ if __name__ == "__main__":
 
 def main():
     """生成所有剩余章节"""
-    base_dir = "E:\\workspace\\BioPython"
+    base_dir = "E:\\workspace\\BioPythonGuide"
     
     for chapter_name, chapter_info in CHAPTERS.items():
         chapter_dir = os.path.join(base_dir, chapter_name)
