@@ -35,8 +35,9 @@ dependencies = [
     "biopython>=1.81",
     "pyfaidx>=0.7.0",
     
-    # 机器学习
+    # 机器学习和统计
     "scikit-learn>=1.3.0",
+    "statsmodels>=0.14.0",
     
     # 开发工具
     "jupyter>=1.0.0",

@@ -14,7 +14,8 @@ Chapter 09: Biopython - 专业生物信息学工具库
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from Bio import SeqIO, Entrez, AlignIO
-from Bio.SeqUtils import GC, molecular_weight, ProtParam
+from Bio.SeqUtils import gc_fraction, molecular_weight
+from Bio.SeqUtils.ProtParam import ProteinAnalysis
 from Bio.Data import CodonTable
 from Bio.Restriction import *
 from Bio.SeqFeature import SeqFeature, FeatureLocation
@@ -41,7 +42,7 @@ def demonstrate_seq_fundamentals():
     
     # 基本序列操作
     print("\n📊 序列统计信息:")
-    print(f"GC含量: {GC(dna_seq):.2f}%")
+    print(f"GC含量: {gc_fraction(dna_seq)*100:.2f}%")
     print(f"A碱基数量: {dna_seq.count('A')}")
     print(f"T碱基数量: {dna_seq.count('T')}")
     print(f"G碱基数量: {dna_seq.count('G')}")
@@ -194,7 +195,7 @@ def demonstrate_seqio_operations():
         print(f"  长度: {len(record.seq)} bp")
         
         # 计算序列特征
-        gc_content = GC(record.seq)
+        gc_content = gc_fraction(record.seq) * 100
         print(f"  GC含量: {gc_content:.1f}%")
         
         # 计算分子量
@@ -305,7 +306,7 @@ def demonstrate_protein_analysis():
     
     # 氨基酸组成
     print("\n氨基酸组成:")
-    aa_comp = protein_analysis.get_amino_acids_percent()
+    aa_comp = protein_analysis.amino_acids_percent
     for aa, percent in sorted(aa_comp.items(), key=lambda x: x[1], reverse=True)[:5]:
         if percent > 0:
             print(f"  {aa}: {percent*100:.1f}%")
@@ -553,7 +554,7 @@ def demonstrate_genome_statistics():
         print(f"{base}: {count:4d} ({percentage:5.1f}%)")
     
     # GC含量和GC偏斜
-    gc_content = GC(genome_fragment)
+    gc_content = gc_fraction(genome_fragment) * 100
     gc_skew = (base_count['G'] - base_count['C']) / (base_count['G'] + base_count['C'])
     at_skew = (base_count['A'] - base_count['T']) / (base_count['A'] + base_count['T'])
     
@@ -641,7 +642,7 @@ def demonstrate_complete_workflow():
     print("\nStep 3: 基本序列分析")
     print("-" * 40)
     
-    gc_content = GC(gene_record.seq)
+    gc_content = gc_fraction(gene_record.seq) * 100
     print(f"GC含量: {gc_content:.2f}%")
     
     # 计算分子量

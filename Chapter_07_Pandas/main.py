@@ -150,8 +150,8 @@ def perform_differential_expression_analysis():
     # 执行t检验
     p_values = []
     for i in range(len(expression_df)):
-        control_values = expression_df.iloc[i][['control_1', 'control_2', 'control_3']].values
-        treatment_values = expression_df.iloc[i][['treatment_1', 'treatment_2', 'treatment_3']].values
+        control_values = expression_df.iloc[i][['control_1', 'control_2', 'control_3']].values.astype(float)
+        treatment_values = expression_df.iloc[i][['treatment_1', 'treatment_2', 'treatment_3']].values.astype(float)
         _, p_value = stats.ttest_ind(control_values, treatment_values)
         p_values.append(p_value)
     
@@ -222,7 +222,7 @@ def analyze_time_series_expression():
             pattern = np.array([50 + 30 * np.sin(t * np.pi / 12) for t in time_points])
             pattern_types.append('oscillating')
         else:  # 稳定表达基因
-            pattern = np.array([50 + np.random.normal(0, 5, len(time_points))])
+            pattern = np.array([50 + np.random.normal(0, 5) for _ in time_points])
             pattern_types.append('stable')
         
         # 添加噪声

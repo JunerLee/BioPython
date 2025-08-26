@@ -263,6 +263,15 @@ def demo_function_composition():
                         break
         return orfs
     
+    # 本地GC计算函数
+    def calculate_gc_content(sequence):
+        """计算GC含量"""
+        sequence = sequence.upper()
+        if not sequence:
+            return 0.0
+        gc_count = sequence.count('G') + sequence.count('C')
+        return gc_count / len(sequence) * 100
+    
     # 综合分析函数 - 组合使用基础函数
     def analyze_sequence_comprehensive(sequence):
         """综合序列分析"""
