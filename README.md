@@ -68,11 +68,27 @@
 
 ### 第一步：准备工作（必须完成！）
 
-#### 1. 安装uv包管理工具（包含Python环境）
+#### 1. 打开终端/命令行
+
+**Windows用户:**
+- 按 `Win + R`，输入 `powershell`，回车
+- 或者在开始菜单搜索"PowerShell"
+
+**Mac用户:**
+- 按 `Cmd + Space`，输入 `terminal`，回车
+- 或者在应用程序/实用工具中找到"终端"
+
+**Linux用户:**
+- 按 `Ctrl + Alt + T`
+- 或者在应用程序菜单中找到"终端"
+
+#### 2. 安装uv包管理工具（包含Python环境）
 
 > 💡 **重要提示**: 使用uv后，你不需要单独安装Python！uv会自动为你管理Python版本。
 
-**Windows (PowerShell):**
+**在终端中执行以下命令:**
+
+**Windows PowerShell:**
 ```powershell
 irm https://astral.sh/uv/install.ps1 | iex
 ```
@@ -82,113 +98,185 @@ irm https://astral.sh/uv/install.ps1 | iex
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-安装完成后，关闭并重新打开终端，验证安装：
+**⚠️ 重要：** 安装完成后，**关闭并重新打开终端**，然后验证安装：
 ```bash
-uv --version  # 应该显示版本号，如 uv 0.4.0
+uv --version
 ```
+如果显示版本号（如 `uv 0.4.0`），说明安装成功！
 
-#### 2. 安装VSCode编辑器
+#### 3. 安装VSCode编辑器（推荐但非必须）
 
 1. 访问 [VSCode官网](https://code.visualstudio.com/)
 2. 下载并安装适合你操作系统的版本
 3. 安装Python扩展（在VSCode中搜索Python并安装Microsoft的官方扩展）
 
-#### 3. 下载本教程
+#### 4. 下载本教程到你的电脑
 
+**选择一个存放教程的位置**（建议在用户主目录下）：
+
+**Windows:**
+```powershell
+# 先进入用户主目录
+cd $HOME
+```
+
+**Mac/Linux:**
 ```bash
-# 如果你安装了Git
+# 先进入用户主目录
+cd ~
+```
+
+**然后下载教程：**
+
+**方法1：使用Git（推荐）**
+```bash
 git clone https://github.com/JunerLee/BioPythonGuide.git
-
-# 或者直接下载ZIP文件并解压
 ```
 
-#### 4. 创建环境并安装依赖（一条命令搞定！）
+**方法2：直接下载**
+- 访问 https://github.com/JunerLee/BioPythonGuide
+- 点击绿色的"Code"按钮
+- 选择"Download ZIP"
+- 解压到合适的位置并重命名为 `BioPythonGuide`
+
+#### 5. 进入教程目录并安装依赖
+
+**⚠️ 重要：** 确保你在正确的目录中执行命令！
 
 ```bash
-cd BioPythonGuide  # 进入项目目录
-uv sync       # 自动下载Python、创建虚拟环境、安装所有依赖
+# 进入教程目录（这一步很重要！）
+cd BioPythonGuide
+
+# 验证你在正确的目录（应该看到README.md等文件）
+ls    # Mac/Linux用户
+dir   # Windows用户
+
+# 安装所有依赖（这个命令会自动完成很多工作）
+uv sync
 ```
 
-这个命令会自动：
+这个 `uv sync` 命令会自动：
 - ✅ 下载并安装Python 3.11（如果系统没有）
 - ✅ 创建虚拟环境（.venv目录）  
 - ✅ 安装所有需要的包（pandas、numpy、biopython等）
 
 ### 第二步：验证环境并开始学习
 
+**确保你还在 `BioPythonGuide` 目录中**，然后运行测试：
+
 ```bash
-# 测试环境是否正确（使用uv run自动在虚拟环境中运行）
+# 测试环境是否正确
 uv run python Chapter_00_Environment/main.py
-
-# 如果看到"🎉 恭喜！你的Python环境配置成功！"就可以开始了
 ```
 
-### 第三步：运行章节代码
+**如果看到 "🎉 恭喜！你的Python环境配置成功！" 就可以开始学习了！**
 
-#### 运行教学示例：
+**如果出现错误，请检查：**
+1. 你是否在 `BioPythonGuide` 目录中？（运行 `pwd` 或 `cd` 查看当前位置）
+2. `uv sync` 是否成功完成？
+3. 终端是否重新打开过？
+
+### 第三步：开始学习章节内容
+
+#### 📖 学习流程（每章都按这个顺序）：
+
+**1. 先运行教学示例（了解本章内容）**
+
+确保你在 `BioPythonGuide` 目录中，然后运行：
+
 ```bash
-# 运行第1章的所有示例
+# 示例：运行第1章的教学示例
 uv run python Chapter_01_Basics/main.py
-
-# 运行第2章的所有示例
-uv run python Chapter_02_DataStructures/main.py
 ```
 
-#### 完成练习题：
+程序会一步步演示，按回车键继续下一个示例。
+
+**2. 阅读章节文档（深入理解）**
+
+在VSCode中打开对应的 `README.md` 文件：
+```
+Chapter_01_Basics/README.md
+```
+
+**3. 完成练习题（巩固知识）**
+
+用VSCode打开练习文件，按TODO提示完成：
+```
+Chapter_01_Basics/practice.py
+```
+
+然后在终端中运行你的练习：
 ```bash
-# 打开练习文件，按照TODO提示完成代码
-# 编辑 Chapter_01_Basics/practice.py
-
-# 运行你的练习代码
+# ⚠️ 确保你还在 BioPythonGuide 目录中
 uv run python Chapter_01_Basics/practice.py
+```
 
-# 对照参考答案
+**4. 对照参考答案（检查学习效果）**
+
+```bash
+# 查看标准答案
 uv run python Chapter_01_Basics/practice_solution.py
 ```
 
-## 📖 每章学习方法
+#### 📚 各章节运行命令：
 
-### 🎯 推荐的学习流程：
+按顺序学习各章节，每章都使用上面的4步流程：
 
-1. **阅读README** (15分钟)
-   - 打开 `Chapter_XX_Topic/README.md`
-   - 理解本章的学习目标和生物学背景
+```bash
+# 第0章：环境测试
+uv run python Chapter_00_Environment/main.py
 
-2. **运行示例代码** (30分钟)
+# 第1章：Python基础
+uv run python Chapter_01_Basics/main.py
+
+# 第2章：数据结构
+uv run python Chapter_02_DataStructures/main.py
+
+# 第3章：控制流
+uv run python Chapter_03_ControlFlow/main.py
+
+# 第4章：函数
+uv run python Chapter_04_Functions/main.py
+
+# ... 以此类推
+```
+
+#### ❓ 遇到问题时的检查清单：
+
+**如果命令报错，按顺序检查：**
+
+1. **检查当前目录：**
    ```bash
-   # 使用uv run在虚拟环境中运行
-   uv run python Chapter_XX_Topic/main.py
-   
-   # 或者先激活虚拟环境
-   # Windows: .venv\Scripts\activate
-   # Mac/Linux: source .venv/bin/activate
-   # 然后运行: python Chapter_XX_Topic/main.py
+   pwd          # Mac/Linux：显示当前路径
+   cd           # Windows：显示当前路径
    ```
-   - 观察程序输出
-   - 对照代码理解每一行的作用
+   确保你在 `BioPythonGuide` 目录中
 
-3. **修改和实验** (30分钟)
-   - 尝试修改`main.py`中的参数
-   - 观察结果的变化
-   - 出错了？很好！这是学习的最佳时机
+2. **检查文件是否存在：**
+   ```bash
+   ls Chapter_01_Basics/     # Mac/Linux
+   dir Chapter_01_Basics\    # Windows
+   ```
 
-4. **完成练习** (45分钟)
-   - 打开 `practice.py`
-   - 根据TODO提示完成代码
-   - 运行测试你的答案
+3. **重新进入项目目录：**
+   ```bash
+   cd ~/BioPythonGuide       # Mac/Linux
+   cd $HOME\BioPythonGuide   # Windows
+   ```
 
-5. **对照答案** (15分钟)
-   - 查看 `practice_solution.py`
-   - 理解不同的解决方案
-   - 总结本章知识点
+## 💡 学习技巧和建议
+
+### 🎯 学习节奏建议：
+- **每章预计时间**：2-4小时（包括理解、练习、总结）
+- **学习频率**：建议每天1-2小时，保持连续性
+- **不要跳章**：每章都建立在前面的基础上
 
 ### 💡 学习小贴士：
-
-- **不要跳章**：每章都建立在前面的基础上
 - **动手敲代码**：不要只是复制粘贴，亲手输入代码记忆更深刻
-- **遇到错误不要慌**：编程就是不断调试的过程
+- **遇到错误不要慌**：编程就是不断调试的过程，错误是学习的好机会
 - **做笔记**：记录你的理解和遇到的问题
 - **问问AI**：使用ChatGPT或Claude帮助理解代码
+- **多实验**：尝试修改参数，观察结果变化
 
 ## 📁 项目文件结构说明
 
@@ -339,24 +427,6 @@ Patient_002,58,Male,IV,3,450.2,523.1,8,Dead
 本教程采用MIT许可证，你可以自由使用、修改和分享。如果对你有帮助，欢迎推荐给其他需要的人！
 
 ## 💡 学习技巧
-
-### 如何运行代码：
-
-1. **推荐方式（使用uv）**：
-   ```bash
-   uv run python Chapter_XX/main.py  # 自动使用虚拟环境
-   ```
-
-2. **传统方式（手动激活虚拟环境）**：
-   ```bash
-   # Windows
-   .venv\Scripts\activate
-   python Chapter_XX/main.py
-   
-   # Mac/Linux
-   source .venv/bin/activate
-   python Chapter_XX/main.py
-   ```
 
 ### 如何调试代码：
 
